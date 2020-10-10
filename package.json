@@ -1,0 +1,31 @@
+{
+  "name": "tweet-xender",
+  "version": "1.0.1",
+  "description": "Tweet Xender create a fancy image for you to share",
+  "main": "tweet.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SilverC0de/tweet-xender.git"
+  },
+  "keywords": [
+    "twitter",
+    "twitter-dev",
+    "share",
+    "tweet",
+    "node"
+  ],
+  "author": "Coconut head developer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SilverC0de/tweet-xender/issues"
+  },
+  "homepage": "https://github.com/SilverC0de/tweet-xender#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
