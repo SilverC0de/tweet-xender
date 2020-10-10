@@ -12,7 +12,7 @@ module.exports = {
         res.send('send ok')
     },
     getMedia: (req, res, next) => {
-        console.log('medis')
+        console.log('media')
         next()
     }
 }
