@@ -1,13 +1,6 @@
 const axios = require('axios')
 const auth = require('./auth')
 
-/**
- * 
- * @param {rfj} url 
- * @param {*} auth 
- * @param {*} bus 
- * @param {*} next 
- */
 
 async function buildtweet (url, auth, bus, next){
     return await axios.get(url, {
@@ -32,5 +25,5 @@ module.exports = function (request, response, next){
         url: url,
         method: 'get'
     }
-    gettweet(url, auth(call), request, next)
+    buildtweet(url, auth(call), request, next)
 }
