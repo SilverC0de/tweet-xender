@@ -1,9 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const action = require('../middleware/action')
+const getMentions = require('../middleware/mentions')
+const fetchTweet = require('../middleware/fetch')
 const core = require('../controller/core')
 
-router.route('/init').get(action.start, action.getMedia, core.execute)
+//steps in making this hapen
+//getting the mentions
+
+router.route('/init').get(getMentions, fetchTweet)
+
 
 module.exports = router
