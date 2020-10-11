@@ -2,6 +2,8 @@
 require 'vendor/autoload.php';
 use Intervention\Image\ImageManagerStatic as Image;
 
+header('Content-Type: application/json');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
     $raw = file_get_contents("php://input");
 
@@ -34,7 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
     $img->save('output/ok.png');
 
-    echo "http://$_SERVER[HTTP_HOST]/tweet-xender/php/output/" . 'ok.png';
+    $data = file_get_contents('output/ok.png');
+    $bytes = filesize('output/ok.png');
+    $base64 = base64_encode($data);
+
+
+    $url = "http://$_SERVER[HTTP_HOST]/tweet-xender/php/output/" . 'ok.png';
+    $response = [
+        'status' => true,
+        'url' => $url,
+        'bytes' => $bytes,
+        'base64' => $base64
+    ];
+    echo json_encode($response);
 } else {
     http_response_code(400);
 }

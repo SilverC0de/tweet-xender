@@ -1,5 +1,5 @@
 const axios = require('axios')
-const auth = require('./auth')
+const auth = require('./oauth')
 
 
 async function gettweet (url, auth, bus, next){
