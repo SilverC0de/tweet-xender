@@ -2,6 +2,16 @@ const axios = require('axios')
 const auth = require('./oauth')
 
 
+/**
+ * @author Balogun Silver @  https://github.com/SilverC0de 
+ * 
+ * @gettweet func gets a particular tweet's full text
+ * 
+ * Nothing much to see here
+ * 
+ * Moving on...
+ */
+
 async function gettweet (url, auth, bus, next){
     return await axios.get(url, {
         headers: auth
@@ -25,5 +35,6 @@ module.exports = function (request, response, next){
         url: url,
         method: 'get'
     }
+
     gettweet(url, auth(call), request, next)
 }

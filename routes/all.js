@@ -2,14 +2,31 @@ const express = require('express')
 const router = express.Router()
 
 const getMentions = require('../middleware/mentions')
-const fetchTweet = require('../middleware/fetch')
+const getTweet = require('../middleware/fetch')
 const buildTweet = require('../middleware/build')
-const core = require('../controller/core')
+const publishTweet = require('../controller/twitter')
 
-//steps in making this hapen
-//getting the mentions
 
-router.route('/init').get(getMentions, fetchTweet, buildTweet)
+/**
+ * @author Balogun Silver @  https://github.com/SilverC0de 
+ * 
+ * @getMentions is used to get everyone who has mentioned previously
+ * 
+ * @getTweet is for getting the tweets before the mention
+ * 
+ * @buildTweet is for converting the tweet into readable and fancy image
+ * 
+ * @publichTweet is for uploading and tweeting the image
+ * 
+ * This is a step by step process of 3 middlewares and 1 controller, controller, **in Drake voice**
+ * 
+ * Can we go now? Thanks
+ * 
+ */
+
+
+
+router.route('/init').get(getMentions, getTweet, buildTweet, publishTweet)
 
 
 module.exports = router

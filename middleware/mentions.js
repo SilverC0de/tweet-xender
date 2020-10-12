@@ -3,9 +3,12 @@ const auth = require('./oauth')
 
 
 /**
- * @function mentions is to make async request to get the userID
- * Get the last ID gotten from redis
- * The async/await function is to avoid cloging of the server
+ * @author Balogun Silver @  https://github.com/SilverC0de 
+ * 
+ * @mentions func is to get all mentions aynsronously
+ * 
+ * Then use Redis to keep track of some data
+ * 
  */
 
 async function mentions(url, auth, bus, next){
@@ -13,6 +16,7 @@ async function mentions(url, auth, bus, next){
         headers: auth
     }).then((body) => {
         bus.tweetTo = body.data[0].id_str
+        bus.tweetFrom = body.data[0].in_reply_to_screen_name
         bus.tweetID = body.data[0].in_reply_to_status_id_str
         bus.tweetUser = body.data[0].user.screen_name
         next()
@@ -33,6 +37,6 @@ module.exports = function (request, response, next) {
         method: `get`
     }
 
-    //start async
+    //start async initialization
     mentions(url, auth(call), request, next)
 }

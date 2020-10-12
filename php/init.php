@@ -34,21 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $font->size(17);
         $font->color(array(255, 255, 255, 0.8));
     });
-    $img->save('output/ok.png');
+    $img->save('output/silver.png');
 
-    $data = file_get_contents('output/ok.png');
-    $bytes = filesize('output/ok.png');
-    $base64 = base64_encode($data);
-
-
-    $url = "http://$_SERVER[HTTP_HOST]/tweet-xender/php/output/" . 'ok.png';
-    $response = [
-        'status' => true,
-        'url' => $url,
-        'bytes' => $bytes,
-        'base64' => $base64
-    ];
-    echo json_encode($response);
+    http_response_code(204);
 } else {
     http_response_code(400);
 }
