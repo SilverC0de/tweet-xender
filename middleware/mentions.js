@@ -1,6 +1,8 @@
 const axios = require('axios')
+const redis = require('redis')
 const auth = require('./oauth')
 
+const redisClient = redis.createClient(6379)
 
 /**
  * @author Balogun Silver @  https://github.com/SilverC0de 
@@ -15,6 +17,11 @@ async function mentions(url, auth, bus, next){
     return await axios.get(url, {
         headers: auth
     }).then((body) => {
+
+        //save sinceID on redis
+        redisClient.set('last', body.data[0].id_str)
+
+        
         bus.tweetTo = body.data[0].id_str
         bus.tweetFrom = body.data[0].in_reply_to_screen_name
         bus.tweetID = body.data[0].in_reply_to_status_id_str
@@ -28,7 +35,7 @@ async function mentions(url, auth, bus, next){
 
 
 module.exports = function (request, response, next) {
-    var lastID = '1161332894725550081'
+    var lastID = '0'
     var url = `https://api.twitter.com/1.1/statuses/mentions_timeline.json?since_id=${lastID}&count=2`
     
     

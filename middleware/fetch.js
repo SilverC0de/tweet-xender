@@ -1,7 +1,8 @@
 const axios = require('axios')
 const auth = require('./oauth')
 
-
+const redis = require('redis')
+const redisClient = redis.createClient(6379)
 /**
  * @author Balogun Silver @  https://github.com/SilverC0de 
  * 
@@ -35,6 +36,13 @@ module.exports = function (request, response, next){
         url: url,
         method: 'get'
     }
+
+
+    redisClient.get('last', (e, data) => {
+        if(!data) {
+            console.log(data)
+        }
+    })
 
     gettweet(url, auth(call), request, next)
 }
