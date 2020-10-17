@@ -38,11 +38,6 @@ module.exports = function (request, response, next){
     }
 
 
-    redisClient.get('last', (e, data) => {
-        if(!data) {
-            console.log(data)
-        }
-    })
-
+    
     gettweet(url, auth(call), request, next)
 }
