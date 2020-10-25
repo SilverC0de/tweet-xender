@@ -5,9 +5,9 @@ const api = express()
 
 require('./routes')(api)
 
-api.all('*', (request, response) => {
-  response.send('Tweet Xender running 😛😛')
-})
+// api.all('*', (request, response) => {
+//   response.send('Tweet Xender running 😛😛')
+// })
 
 
 api.listen(process.env.PORT, () => {

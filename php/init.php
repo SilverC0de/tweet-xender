@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = "@" . $json->user;
     $text = $json->body;
 
+    $text = preg_replace('/(\s+|^)@\S+/', '', $json->body);
 
 
 

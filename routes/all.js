@@ -29,6 +29,6 @@ const publishTweet = require('../controller/twitter')
      next()
  }
 
-router.route('/init').get(getEventloop, getMentions, getTweet, buildTweet)
+router.route('/init').get(getEventloop, getMentions)
 
 module.exports = router
