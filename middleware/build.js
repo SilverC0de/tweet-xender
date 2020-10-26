@@ -15,16 +15,19 @@ const axios = require('axios')
  */
 
 async function buildtweet (bus, next){
+    console.log(bus.tweetBody)
     var call = {
-        url: 'http://localhost/tweet-xender/php/init',
+        url: 'http://isystem.herokuapp.com/init',
         method: 'post',
         data: {
+            i: bus.tweetID,
             user: bus.tweetFrom,
             body: bus.tweetBody
         }
     }
 
     return await axios.request(call).then((body) => {    
+        console.log('build tweet ok')
         next()
     }).catch((e) => {
         console.log(e.message)

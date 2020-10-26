@@ -1,4 +1,6 @@
-const Twitter = require('twitter');
+const Twitter = require('twitter')
+const http = require('http')
+const fs = require('fs')
 
 /**
  * @author Balogun Silver @  https://github.com/SilverC0de 
@@ -20,24 +22,35 @@ var client = new Twitter({
     access_token_secret: process.env.TWITTER_SECRET_TOKEN,
 })
 
-module.exports = (request, response) => {
-    var data = require('fs').readFileSync('./php/output/silver.png')
-    var tweetTo = request.tweetTo
-
-
+async function finalizeTweet(tweetTo, i) {
+    await http.get(`http://isystem.herokuapp.com/output/${i}.png`, file => {
+        const data = fs.createWriteStream(`bin/${i}.png`)
+        file.pipe(data)
     
-
-
-    client.post('media/upload', {media: data}, function(error, media, response) {
-        if (!error) {
-            var tweet = {
-                status: 'Honourable, there you go 🙂 #SARSMUSTEND',
-                in_reply_to_status_id: tweetTo,
-                media_ids: media.media_id_string,
-                auto_populate_reply_metadata: true
-            }
-
-            client.post('statuses/update', tweet, function(error, tweet, response) {} )
-        }
+        data.on('finish', function() {
+            var img = fs.readFileSync(`./bin/${i}.png`)
+            
+            client.post('media/upload', {media: img}, function(error, media, response) {
+                if (!error) {
+                    var tweet = {
+                        status: 'Honourable, there you go 🙂',
+                        in_reply_to_status_id: tweetTo,
+                        media_ids: media.media_id_string,
+                        auto_populate_reply_metadata: true
+                    }
+        
+                    client.post('statuses/update', tweet, function(error, tweet, response) {} )
+                }
+            })
+            
+        })
     })
+}
+
+
+module.exports = (request, response) => {
+    var i = request.tweetID
+    var tweetTo = request.tweetTo
+    
+    finalizeTweet(tweetTo, i) //oya finiah nah
 }

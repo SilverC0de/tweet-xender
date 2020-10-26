@@ -4,7 +4,8 @@
   "description": "Tweet Xender create a fancy image for you to share",
   "main": "tweet.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start" : "pm2 start tweet.js"
   },
   "repository": {
     "type": "git",
